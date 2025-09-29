@@ -50,7 +50,8 @@ int main(void)
   /*Infinite loop*/
   while (1)
   {
-    GPIOB->ODR ^= 0b1<<3;
+    //GPIOB->ODR ^= 0b1<<3;
+    _GPIO_PinToggle(GPIOB, 3);
     Delay();
   }
 
