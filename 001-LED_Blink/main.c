@@ -13,6 +13,7 @@ Purpose : Generic application start
 #include <stdio.h>
 #include "stm32g031xx.h"
 
+
 /*********************************************************************
 *
 *       main()
@@ -23,7 +24,7 @@ Purpose : Generic application start
 *  Built in LED3 -> PC6 (not connected to headers)
 */
 
-void Delay(void);//Function prototype
+void Delay(void);//Function prototype (Local)
 
 int main(void) 
 {
@@ -38,6 +39,9 @@ int main(void)
   /*set PB3 as ouput*/
   GPIOB->MODER &= ~GPIO_MODER_MODE3_Msk; // Clear mode bits
   GPIOB->MODER |= GPIO_MODER_MODE3_0;    // Set to output (01)
+
+
+  printf("Hello World");
 
 
   /*Infinite loop*/
@@ -56,3 +60,11 @@ void Delay(void)
 }
 
 /*************************** End of file ****************************/
+
+/* Challenge
+
+- Try to create a function that delays for 1[ms]
+- Try to create another function that delays for X [ms] where x is passed in
+as a parameter.
+
+*/
