@@ -24,7 +24,7 @@ Purpose : Generic application start
 *  Built in LED3 -> PC6 (not connected to headers)
 */
 
-void Delay(void);//Function prototype (Local)
+void Delay(int milliseconds);//Function prototype (Local)
 
 int main(void) 
 {
@@ -34,33 +34,32 @@ int main(void)
   RCC->APBENR1 |= RCC_APBENR1_PWREN;
 
   /*Peripherals clock enable (RM 5.4.13)*/
-  RCC->IOPENR |= RCC_IOPENR_GPIOBEN; //connects GPIOB to the clock
+  RCC->IOPENR |= RCC_IOPENR_GPIOCEN; //connects GPIOB to the clock
 
-  /*set PB3 as ouput*/
-  //GPIOB->MODER &= ~GPIO_MODER_MODE3_Msk; // Clear mode bits
-  GPIOB->MODER &= ~(0b11<<(2*3)); // Clear mode bits
-  //GPIOB->MODER |= GPIO_MODER_MODE3_0;    // Set to output (01)
-  GPIOB->MODER |= 0b01<<(2*3);
-
-
+  /*set PC6 as ouput*/
+  //GPIOC->MODER &= ~GPIO_MODER_MODE6_Msk; // Clear mode bits
+  GPIOC->MODER &= ~(0b11<<(2*6)); // Clear mode bits
+  //GPIOC->MODER |= GPIO_MODER_MODE6_0;    // Set to output (01)
+  GPIOC->MODER |= 0b01<<(2*6);
 
   printf("Hello World");
-
 
   /*Infinite loop*/
   while (1)
   {
-    //GPIOB->ODR ^= GPIO_ODR_OD3;
-    GPIOB->ODR ^= 0b1<<3;
-    Delay();
+    //GPIOC->ODR ^= GPIO_ODR_OD6;
+    GPIOC->ODR ^= 0b1<<6;
+    Delay(500);
   }
 
 }
 
 //Function definition
-void Delay(void)
+void Delay(int milliseconds)
 {
-  asm("nop"); //takes 1 cycle;
+  for (int i = 0 ; i < milliseconds ; ++i)
+    for (int j = 0 ; j < 571 ; ++j)
+      asm("nop"); //takes 1 cycle;
 }
 
 /*************************** End of file ****************************/

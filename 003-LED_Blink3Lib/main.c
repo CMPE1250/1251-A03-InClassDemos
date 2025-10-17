@@ -10,10 +10,9 @@ Purpose : Generic application start
 
 */
 
-#include <stdio.h>
-#include "stm32g031xx.h"
+//#include "stm32g031xx.h"
 #include "gpio.h"
-
+#include <stdio.h>
 
 /*********************************************************************
 *
@@ -35,12 +34,12 @@ int main(void)
   RCC->APBENR1 |= RCC_APBENR1_PWREN;
 
   /*Peripherals clock enable (RM 5.4.13)*/
-  RCC->IOPENR |= RCC_IOPENR_GPIOBEN; //connects GPIOB to the clock
+  RCC->IOPENR |= RCC_IOPENR_GPIOCEN; //connects GPIOC to the clock
 
   /*set PB3 as ouput*/
-  //GPIOB->MODER &= ~(0b11<<(2*3)); // Clear mode bits
-  //GPIOB->MODER |= 0b01<<(2*3);
-  _GPIO_SetPinMode(GPIOB, 3, _GPIO_PinMode_Output);
+  //GPIOC->MODER &= ~(0b11<<(2*3)); // Clear mode bits
+  //GPIOC->MODER |= 0b01<<(2*3);
+  _GPIO_SetPinMode(GPIOC, 6, _GPIO_PinMode_Output);
 
 
 
@@ -51,8 +50,8 @@ int main(void)
   while (1)
   {
     //GPIOB->ODR ^= 0b1<<3;
-    _GPIO_PinToggle(GPIOB, 3);
-    Delay();
+    _GPIO_PinToggle(GPIOC, 6);
+    utiDelay(500); //Wait a half sec 
   }
 
 }

@@ -34,11 +34,11 @@ int main(void)
   RCC->APBENR1 |= RCC_APBENR1_PWREN;
 
   /*Peripherals clock enable (RM 5.4.13)*/
-  RCC->IOPENR |= RCC_IOPENR_GPIOBEN; //connects GPIOB to the clock
+  RCC->IOPENR |= RCC_IOPENR_GPIOCEN; //connects GPIOB to the clock
 
-  /*set PB3 as ouput*/
-  GPIOB->MODER &= ~GPIO_MODER_MODE3_Msk; // Clear mode bits
-  GPIOB->MODER |= GPIO_MODER_MODE3_0;    // Set to output (01)
+  /*set PC6 as ouput*/
+  GPIOC->MODER &= ~GPIO_MODER_MODE6_Msk; // Clear mode bits
+  GPIOC->MODER |= GPIO_MODER_MODE6_0;    // Set to output (01)
 
 
   printf("Hello World");
@@ -47,7 +47,7 @@ int main(void)
   /*Infinite loop*/
   while (1)
   {
-    GPIOB->ODR ^= GPIO_ODR_OD3;
+    GPIOC->ODR ^= GPIO_ODR_OD6;
     Delay();
   }
 

@@ -98,3 +98,5 @@ Firmware/
 **/Firmware/
 **/*.emSession
 
+
+.DS_Store
