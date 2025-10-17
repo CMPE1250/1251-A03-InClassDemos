@@ -45,7 +45,7 @@
       target_reset_script="Reset();" />
     <configuration
       Name="Debug"
-      c_user_include_directories="$(ProjectDir)\\..\\..\\Lib\\inc" />
+      c_user_include_directories="$(ProjectDir)\\..\\..\\Lib\\" />
     <folder Name="CMSIS Files">
       <file file_name="STM32G0xx/Device/Include/stm32g0xx.h" />
       <file file_name="STM32G0xx/Device/Source/system_stm32g0xx.c">
@@ -62,7 +62,8 @@
     </folder>
     <folder Name="Source Files">
       <configuration Name="Common" filter="c;cpp;cxx;cc;h;s;asm;inc" />
-      <file file_name="../../Lib/src/gpio.c" />
+      <file file_name="../../Lib/gpio.c" />
+      <file file_name="../../Lib/gpio.h" />
       <file file_name="main.c" />
     </folder>
     <folder Name="System Files">
