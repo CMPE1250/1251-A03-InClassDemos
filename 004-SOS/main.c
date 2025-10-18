@@ -10,9 +10,7 @@ Purpose : Generic application start
 
 */
 
-//FIXME: For some reason, I get errors including stm32 headers
-//       when they are included in library headers (guards issue)? 
-//#include <stm32g031xx.h>
+#include <stm32g031xx.h>
 #include "gpio.h"
 
 /*********************************************************************
@@ -27,8 +25,8 @@ int main(void) {
   // When a button on P is pressed, generate an SOS pattern on the LED.
   // the SOS pattern is 3 dots, 3 dashes, 3 dots, with the length of a dot
   // the same as the gap between symbols, the length of a dash three times
-  // that, and the length of 7 dots between them.  So, with each character
-  // one time unit, the pattern would be (where _ is off, and - is on):
+  // that, and the length of 7 dots between sending again.  So, with each 
+  // character one time unit, the pattern would be (where _ is off, - is on):
   // -_-_-_---_---_---_-_-_-_______  before repeating (30 symbols total).
 
   int count = 0; //Loop Counter
@@ -50,7 +48,9 @@ int main(void) {
     utiDelay(300); // My busy wait loop delay.  This is the length of a dot
 
     // Just going to sit here and spin until the input pin goes high...
-    // but if I'm not waiting, I'll skip this line
+    // but if I'm not waiting, I'll skip this line (this has the effect
+    // that I ignore the button until I'm done sending SOS, which is a 
+    // useful feature.
     while(waiting && !_GPIO_GetPinIState(GPIOB, 1));
     //If I make it here, someone pressed the button!
     //My wait is over...
