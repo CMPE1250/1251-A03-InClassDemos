@@ -45,7 +45,7 @@ int main(void) {
   for (;;)
   {
     count++; //Increment my loop counter    
-    utiDelay(300); // My busy wait loop delay.  This is the length of a dot
+    utiDelay(200); // My busy wait loop delay.  This is the length of a dot
 
     // Just going to sit here and spin until the input pin goes high...
     // but if I'm not waiting, I'll skip this line (this has the effect

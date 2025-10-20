@@ -38,7 +38,7 @@ int main(void) {
   for(;;)
   {
     count++;
-    utiDelay(10); //This is my basic smallest event length.
+    utiDelay(10); //This is my basic smallest event length.~~``~~`-
     //Every 200 ms, I want to read my three bit number.
     //One pulse is actually 2 transitions, so I need twice
     //as many. Only read every 200 ms, not every loop
