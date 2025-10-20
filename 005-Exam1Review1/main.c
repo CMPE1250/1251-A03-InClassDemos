@@ -47,7 +47,11 @@ int main(void) {
                    _GPIO_GetPinIState(GPIOB, 0) << 1 |
                    _GPIO_GetPinIState(GPIOB, 2));
     //For the next 'pulses' loops, I want to togle A5
-    if (pulses--) _GPIO_PinToggle(GPIOA, 5);
+    if (pulses) 
+    {
+      _GPIO_PinToggle(GPIOA, 5);
+      pulses--;
+    }
   }
 
   return SUCCESS;
