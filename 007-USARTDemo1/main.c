@@ -22,6 +22,10 @@ Purpose : Generic application start
 */
 int main(void) {
   int count = 0; // Loop Counter
+
+  //Fire up the main console
+  _USART_Init_USART2(SystemCoreClock, 38400);
+
   for(;;)
   {
 
