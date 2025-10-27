@@ -100,3 +100,5 @@ Firmware/
 
 
 .DS_Store
+
+*.jlink
