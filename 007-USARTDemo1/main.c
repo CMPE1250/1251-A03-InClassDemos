@@ -30,7 +30,7 @@ int main(void) {
 
   for(;;)
   {
-    utiDelay(500);
+    utiDelay(10);
     _USART_TxByte(USART2, 'A');
     if(_USART_RxByte(USART2, &c))
       printf("%c...",c);
