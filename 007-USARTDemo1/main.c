@@ -35,8 +35,15 @@ int main(void) {
 
   for(;;)
   {
-    utiDelay(200);
-    _USART_TxByte(USART2, '.');
+    if(!count%100)
+      _USART_TxByte(USART2, '.');
+    if(_USART_RxByte(USART2, &c))
+    {
+      printf("%c",c);
+      _USART_TxByte(USART2, c);
+    }
+    if(USART2->ISR & USART_ISR_ORE) //Overrun Error flag sit
+      printf("\nOverrun!\n");
     ++count;
   }
 }
