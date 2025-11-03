@@ -24,6 +24,10 @@ Purpose : Generic application start
 */
 int main(void) {
   int count = 0; //Loop Counter
+
+  _USART_Init_USART2(SystemCoreClock, 38400);
+
+  _USART_TxStringXY(USART2, 7, 7, "AJ ARMSTRONG");
   
   //Part A
 
