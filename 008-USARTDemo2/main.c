@@ -12,7 +12,7 @@ Purpose : Generic application start
 
 #include "util.h"
 #include "gpio.h"
-#include "uart.h"
+#include "usart.h"
 
 
 /*********************************************************************
