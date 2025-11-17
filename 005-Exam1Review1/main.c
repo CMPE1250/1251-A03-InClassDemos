@@ -11,8 +11,8 @@ Purpose : Practice Exam Question 1 Solution
 */
 
 #include <stm32g031xx.h>
-#include <stdio.h>
 #include "gpio.h"
+#define SUCCESS 0
 
 /*********************************************************************
 *
