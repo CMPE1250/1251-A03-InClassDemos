@@ -28,7 +28,7 @@ Purpose : Generic application start
 int main(void) {
   int count = 0; // Loop Counter
   int delay = 10000; //How many loops to wait before the next event
-  byte c = 0;
+  char c = 0;
   int bufindx = 0; // Current index of my circular buffer
   char buffer[BUFFSIZE] = {0};
   int charcount = 0;
