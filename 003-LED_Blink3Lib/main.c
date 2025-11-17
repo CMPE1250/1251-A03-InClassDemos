@@ -41,10 +41,7 @@ int main(void)
   //GPIOC->MODER |= 0b01<<(2*3);
   _GPIO_SetPinMode(GPIOC, 6, _GPIO_PinMode_Output);
 
-
-
   printf("Hello World");
-
 
   /*Infinite loop*/
   while (1)
@@ -53,7 +50,6 @@ int main(void)
     _GPIO_PinToggle(GPIOC, 6);
     utiDelay(500); //Wait a half sec 
   }
-
 }
 
 //Function definition
