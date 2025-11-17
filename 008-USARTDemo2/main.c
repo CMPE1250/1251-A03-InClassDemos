@@ -10,9 +10,8 @@ Purpose : Generic application start
 
 */
 
-#include "util.h"
-#include "gpio.h"
 #include "usart.h"
+#include <string.h>
 
 
 /*********************************************************************
