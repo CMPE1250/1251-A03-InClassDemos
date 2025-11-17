@@ -3,6 +3,7 @@
   <configuration
     Name="Debug"
     c_preprocessor_definitions="DEBUG"
+    c_user_include_directories=".;../../Lib"
     gcc_debugging_level="Level 3"
     gcc_omit_frame_pointer="Yes"
     gcc_optimization_level="None" />
@@ -60,11 +61,11 @@
     </folder>
     <folder Name="Source Files">
       <configuration Name="Common" filter="c;cpp;cxx;cc;h;s;asm;inc" />
-      <file file_name="../../Lib/gpio.c" />
-      <file file_name="../../Lib/gpio.h" />
+      <file file_name="../../STM32/button.c" />
+      <file file_name="../../STM32/button.h" />
       <file file_name="main.c" />
-      <file file_name="../../Lib/util.c" />
-      <file file_name="../../Lib/util.h" />
+      <file file_name="../../STM32/usart.c" />
+      <file file_name="../../STM32/usart.h" />
     </folder>
     <folder Name="System Files">
       <file file_name="SEGGER_THUMB_Startup.s" />
