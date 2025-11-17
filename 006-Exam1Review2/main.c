@@ -10,7 +10,6 @@ Purpose : Generic application start
 
 */
 
-#include <stdio.h>
 #include <stm32g031xx.h>
 #include "gpio.h"
 
