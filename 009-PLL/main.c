@@ -82,9 +82,9 @@ int main(void) {
           0b00001 << RCC_PLLCFGR_PLLP_Pos   | //P is /2 
               0b0 << RCC_PLLCFGR_PLLPEN_Pos | //Disable P 
         0b0001010 << RCC_PLLCFGR_PLLN_Pos   | //N is X10 (This would set my fvco to 160MHz, except...)
-            0b000 << RCC_PLLCFGR_PLLM_Pos   | //M is /2 (this subsequently divides it by 2 for 80MHz)
+            0b001 << RCC_PLLCFGR_PLLM_Pos   | //M is /2 (this subsequently divides it by 2 for 80MHz)
              0b10 << RCC_PLLCFGR_PLLSRC_Pos;  //HSI16 src
-  RCC->PLLCFGR = temp; // Write everything at once (only do this if happy changing EVERY field in the register
+  RCC->PLLCFGR = temp; // Write everything at once (only do this if happy changing EVERY field in the register)
   // Enable PLL R now that configuration is complete.
   RCC->PLLCFGR |= RCC_PLLCFGR_PLLREN_Msk;
 
