@@ -98,9 +98,7 @@ int main(void) {
   //wait to be sure it took (this is another of those fields you can read back to confirm)
   while((RCC->CFGR & RCC_CFGR_SWS_Msk) != (0b010 << RCC_CFGR_SWS_Pos)) {;;}
   //Reset System Core Clock value so other functions using it don't break.
-  //SystemCoreClock = 40000000;
-  SystemCoreClockUpdate(); //USING CMSIS, BAD AJ?
-  printf("System core clock = %u",SystemCoreClock);
+  SystemCoreClock = 40000000;
 
   //Event Loop
   for(;;)
