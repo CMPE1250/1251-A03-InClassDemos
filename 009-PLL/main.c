@@ -46,7 +46,7 @@ int main(void) {
   while(PWR->SR2 & PWR_SR2_VOSF_Msk){;;} //Loop until VOSF is a zero
 
   // (2) 3.7.1 - Set Flash wait states (latency)
-  FLASH->ACR &= ~FLASH_ACR_LATENCY_Msk; //Clear existing bits
+  FLASH->ACR &= ~FLASH_ACR_LATENCY_Msk; //Clear existing bits9
   FLASH->ACR |= 0b001 << FLASH_ACR_LATENCY_Pos; // (1 latency) is 001 - 3.7.1
   // 3.7.1 for this field says "a new write becomes effective when it returns the same value upon read"
   // so, let's wait until we can read that same value back...
