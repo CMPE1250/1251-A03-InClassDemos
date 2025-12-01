@@ -1,5 +1,5 @@
 <!DOCTYPE CrossStudio_Project_File>
-<solution Name="011-CLockDemoByCarlos2" target="8" version="2">
+<solution Name="012-TimerDemo1" target="8" version="2">
   <configuration
     Name="Debug"
     c_preprocessor_definitions="DEBUG"
@@ -13,7 +13,7 @@
     gcc_debugging_level="Level 2"
     gcc_omit_frame_pointer="Yes"
     gcc_optimization_level="Level 2 balanced" />
-  <project Name="011-CLockDemoByCarlos2">
+  <project Name="012-TimerDemo1">
     <configuration
       LIBRARY_IO_TYPE="RTT"
       Name="Common"
@@ -61,6 +61,7 @@
     </folder>
     <folder Name="Source Files">
       <configuration Name="Common" filter="c;cpp;cxx;cc;h;s;asm;inc" />
+      <file file_name="../../Lib/clock.c" />
       <file file_name="../../Lib/gpio.c" />
       <file file_name="main.c" />
     </folder>
