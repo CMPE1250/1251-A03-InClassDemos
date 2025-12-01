@@ -46,7 +46,7 @@ int main(void) {
   while(PWR->SR2 & PWR_SR2_VOSF_Msk){;;} //Loop until VOSF is a zero
 
   // (2) 3.7.1 - Set Flash wait states (latency)
-  FLASH->ACR &= ~FLASH_ACR_LATENCY_Msk; //Clear existing bits
+  FLASH->ACR &= ~FLASH_ACR_LATENCY_Msk; //Clear existing bits9
   FLASH->ACR |= 0b001 << FLASH_ACR_LATENCY_Pos; // (1 latency) is 001 - 3.7.1
   // 3.7.1 for this field says "a new write becomes effective when it returns the same value upon read"
   // so, let's wait until we can read that same value back...
@@ -82,9 +82,9 @@ int main(void) {
           0b00001 << RCC_PLLCFGR_PLLP_Pos   | //P is /2 
               0b0 << RCC_PLLCFGR_PLLPEN_Pos | //Disable P 
         0b0001010 << RCC_PLLCFGR_PLLN_Pos   | //N is X10 (This would set my fvco to 160MHz, except...)
-            0b000 << RCC_PLLCFGR_PLLM_Pos   | //M is /2 (this subsequently divides it by 2 for 80MHz)
+            0b001 << RCC_PLLCFGR_PLLM_Pos   | //M is /2 (this subsequently divides it by 2 for 80MHz)
              0b10 << RCC_PLLCFGR_PLLSRC_Pos;  //HSI16 src
-  RCC->PLLCFGR = temp; // Write everything at once (only do this if happy changing EVERY field in the register
+  RCC->PLLCFGR = temp; // Write everything at once (only do this if happy changing EVERY field in the register)
   // Enable PLL R now that configuration is complete.
   RCC->PLLCFGR |= RCC_PLLCFGR_PLLREN_Msk;
 
@@ -98,9 +98,7 @@ int main(void) {
   //wait to be sure it took (this is another of those fields you can read back to confirm)
   while((RCC->CFGR & RCC_CFGR_SWS_Msk) != (0b010 << RCC_CFGR_SWS_Pos)) {;;}
   //Reset System Core Clock value so other functions using it don't break.
-  //SystemCoreClock = 40000000;
-  SystemCoreClockUpdate(); //USING CMSIS, BAD AJ?
-  printf("System core clock = %u",SystemCoreClock);
+  SystemCoreClock = 40000000;
 
   //Event Loop
   for(;;)
