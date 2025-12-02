@@ -59,30 +59,27 @@ int main(void)
   TIM14->PSC = 40 - 1;
   /*Set Autoreload in ARR register*/
   TIM14->ARR = 250 - 1; //ticks in [us] //mod-250 counter
+
+  /*OUTPUT COMPARE SETTINGS*/
+  TIM14->CCR1 = 50; //50 ticks -> 50[us]
+
+
+
   /*Enable counter*/
   TIM14->CR1 |= TIM_CR1_CEN;
   
   while(1)
   {//Infinite loop.
-
-    /*Experimentation
-    - Insert a blocking delay here
-    - See what happens
-    - See how you can fix it (ISR?)
-    */
-    //Poll flag
-    /*Check if the flag is active, otherwise , skip through*/
      if(TIM14->SR & TIM_SR_UIF)
      {
-       _GPIO_PinToggle(GPIOB, 3);
+       _GPIO_PinSet(GPIOB, 3);
        TIM14->SR &= ~TIM_SR_UIF;//Clear flag
      }
-
-    //BLock code, different approach
-    /*Block the code until the flag is active*/
-    //while(!(TIM14->SR & TIM_SR_UIF));
-    //_GPIO_PinToggle(GPIOB, 3);
-    //TIM14->SR &= ~TIM_SR_UIF;//Clear flag 
+     if(TIM14->SR & TIM_SR_CC1IF)
+     {
+       _GPIO_PinClear(GPIOB, 3);
+       TIM14->SR &= ~TIM_SR_CC1IF;//Clear flag
+     }
   }
 }
 
