@@ -29,7 +29,13 @@ Purpose : Generic application start
 int main(void) 
 {
   //Initialization
-  uint16_t msCounter = 0;
+  uint8_t leftState = 0, rightState = 0, centerState = 0, pwmMode = 0;
+
+
+
+
+
+
   //Enable power interface clock (RM 5.4.15)
   RCC->APBENR1 |= RCC_APBENR1_PWREN;
 
@@ -80,51 +86,83 @@ int main(void)
 
   /*Enable switches*/
   _GPIO_SetPinMode(GPIOB, 4,  _GPIO_PinMode_Input); //Switch 1
-  _GPIO_SetPinMode(GPIOB, 3, _GPIO_PinMode_Input); //Switch 2
+  _GPIO_SetPinMode(GPIOB, 3, _GPIO_PinMode_Input); //Switch 4
+    _GPIO_SetPinMode(GPIOB, 5, _GPIO_PinMode_Input); //Switch 2 - center
 
   /*Enable built in LED*/
   _GPIO_SetPinMode(GPIOC, 6,  _GPIO_PinMode_Output); //Built in LED
   
   while(1)
   {//Infinite loop.
-    //Check for timer update event
-    if(TIM14->SR & TIM_SR_UIF)
-    {//THis will happen every 1[ms]
-      //Clear flag
-      TIM14->SR &= ~TIM_SR_UIF;
-      //Toggle LED
-      _GPIO_PinToggle(GPIOC,6);
-      //Increment ms counter
-      if(++msCounter >= 25)
-      {
-        msCounter = 0;
-        //Check switches every 1[ms]
-        if(!_GPIO_GetPinIState(GPIOB,3))
-        {//RIGHT switch pressed
-          //Increase duty cycle
-          if(TIM14->CCR1 < 990)
-          {
-            TIM14->CCR1 += 10;
-          }
+    /*Check for RIGHT Button*/
+    if(!_GPIO_GetPinIState(GPIOB,3))
+    {//RIGHT switch pressed
+      if(!leftState)
+      {//Only act on the transition
+        leftState = 1;
+        //Increase duty cycle
+        if(TIM14->CCR1 < 950)
+        {
+          TIM14->CCR1 += 50;
         }
-        else
-        {//RIGHT Switch not pressed
-          
-        }
-        if(!_GPIO_GetPinIState(GPIOB,4))
-        {//LEFT switch pressed
-          //Decrease duty cycle
-          if(TIM14->CCR1 > 10)
-          {
-            TIM14->CCR1 -= 10;
-          }
-        }
-        else
-        {//LEFT Switch not pressed
-          
-        }        
       }
     }
+    else
+    {//RIGHT Switch not pressed
+      if(leftState)
+      {
+        leftState = 0;
+      }
+    }
+    /*Check for LEFT Button*/
+    if(!_GPIO_GetPinIState(GPIOB,4))
+    {//LEFT switch pressed
+      if(!rightState)
+      {
+        rightState = 1;
+        //Decrease duty cycle
+        if(TIM14->CCR1 > 50)
+        {
+          TIM14->CCR1 -= 50;
+        }
+      }
+    }
+    else
+    {//LEFT Switch not pressed
+      if(rightState)
+      {
+        rightState = 0;
+      }      
+    }  
+    //  /*Check for CTR Button*/
+    if(!_GPIO_GetPinIState(GPIOB,5))
+    {//CTR switch pressed
+      if(!centerState)
+      {
+        centerState = 1;
+      }
+    }
+    else
+    {//CTR Switch not pressed
+      if(centerState)
+      {
+        centerState = 0;
+        /*swap PWM mode*/
+        pwmMode ^= 1;  
+        if(pwmMode)
+        {//If pwmMode == 1 -> PWM2
+          /*PWM Mode 2*/
+          TIM14->CCMR1 &= ~TIM_CCMR1_OC1M;//Clear Output comare mode bits
+          TIM14->CCMR1 |= TIM_CCMR1_OC1M_2 | TIM_CCMR1_OC1M_1 | TIM_CCMR1_OC1M_0;
+        }
+        else
+        {//If pwmMode == 0 -> PWM1
+          /*PWM Mode 1*/
+          TIM14->CCMR1 &= ~TIM_CCMR1_OC1M;//Clear Output comare mode bits
+          TIM14->CCMR1 |= TIM_CCMR1_OC1M_2 | TIM_CCMR1_OC1M_1;
+        }
+      }      
+    }   
   }
 }
 
